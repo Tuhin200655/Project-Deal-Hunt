@@ -5,6 +5,7 @@ import ProductGrid from "@/components/ProductGrid";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import Footer from "@/components/Footer";
+import ParticleBackground from "@/components/ParticleBackground";
 import { TrendingDown, Shield, Bell, Rabbit } from "lucide-react";
 import AuthButton from "@/components/AuthButton";
 import Image from "next/image";
@@ -38,7 +39,8 @@ export default async function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-linear-to-br from-violet-50 via-white to-pink-50">
+    <main className="min-h-screen bg-linear-to-br from-violet-50 via-white to-pink-50 relative">
+      <ParticleBackground />
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
