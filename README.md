@@ -238,4 +238,4 @@ This project is licensed under the MIT License.
 
 ---
 
-Built with ❤️ by [Tuhin](https://github.com/Tuhin200655).
+Built with ❤️ by [Tuhin](https://github.com/Tuhin200655)
