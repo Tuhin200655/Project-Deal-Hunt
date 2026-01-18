@@ -32,6 +32,7 @@ export async function POST(request) {
             failed: 0,
             priceChanges: 0,
             alertsSent: 0,
+            errors: []
         };
 
         for (const product of products) {
@@ -44,16 +45,17 @@ export async function POST(request) {
                         productData
                     );
                     results.failed++;
+                    results.errors.push(`Scrape failed for ${product.id}`);
                     continue;
                 }
 
                 const newPrice = parseFloat(productData.currentPrice);
-                const oldPrice = parseFloat(product.price); // Changed from current_price to price
+                const oldPrice = parseFloat(product.price);
 
                 await supabase
                     .from("products")
                     .update({
-                        price: newPrice, // Changed from current_price to price
+                        price: newPrice,
                         currency: productData.currencyCode || product.currency,
                         name: productData.productName || product.name,
                         image_url: productData.productImageUrl || product.image_url,
@@ -73,9 +75,12 @@ export async function POST(request) {
                     if (newPrice < oldPrice) {
                         const {
                             data: { user },
+                            error: userError
                         } = await supabase.auth.admin.getUserById(product.user_id);
 
-                        if (user?.email) {
+                        if (userError || !user) {
+                            results.errors.push(`User fetch failed for ${product.user_id}: ${userError?.message}`);
+                        } else if (user?.email) {
                             const emailResult = await sendPriceDropAlert(
                                 user.email,
                                 product,
@@ -85,7 +90,11 @@ export async function POST(request) {
 
                             if (emailResult.success) {
                                 results.alertsSent++;
+                            } else {
+                                results.errors.push(`Email failed for ${user.email}: ${emailResult.error}`);
                             }
+                        } else {
+                            results.errors.push(`User ${product.user_id} has no email`);
                         }
                     }
                 }
@@ -94,6 +103,7 @@ export async function POST(request) {
             } catch (error) {
                 console.error(`Error processing product ${product.id}:`, error);
                 results.failed++;
+                results.errors.push(`Process error ${product.id}: ${error.message}`);
             }
         }
 
