@@ -75,7 +75,7 @@ export default function AddProductForm({ user }) {
             <Button
               type="submit"
               disabled={loading}
-              className="bg-orange-500 hover:bg-orange-600 h-10 sm:h-12 px-8"
+              className="bg-violet-600 hover:bg-violet-700 h-10 sm:h-12 px-8"
               size="lg"
             >
               {loading && !previewData ? (
@@ -97,10 +97,12 @@ export default function AddProductForm({ user }) {
           <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-xs animate-in fade-in slide-in-from-top-4">
             <div className="flex items-start gap-4">
               <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                <img
+                <Image
                   src={previewData.image}
                   alt={previewData.name}
-                  className="h-full w-full object-contain"
+                  fill
+                  className="object-contain"
+                  unoptimized
                 />
               </div>
 
@@ -108,7 +110,7 @@ export default function AddProductForm({ user }) {
                 <h3 className="font-semibold text-gray-900 line-clamp-2 mb-1">
                   {previewData.name}
                 </h3>
-                <div className="text-2xl font-bold text-orange-600 mb-4">
+                <div className="text-2xl font-bold text-violet-600 mb-4">
                   {previewData.currency} {previewData.price}
                 </div>
 
