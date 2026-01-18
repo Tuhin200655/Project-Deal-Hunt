@@ -91,7 +91,7 @@ export async function POST(request) {
                             if (emailResult.success) {
                                 results.alertsSent++;
                             } else {
-                                results.errors.push(`Email failed for ${user.email}: ${emailResult.error}`);
+                                results.errors.push(`Email failed for ${user.email}: ${JSON.stringify(emailResult.error)}`);
                             }
                         } else {
                             results.errors.push(`User ${product.user_id} has no email`);
