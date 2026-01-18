@@ -67,7 +67,7 @@ export default async function Home() {
 
       {/* Features */}
       {products.length === 0 && (
-        <section className="py-20 px-4">
+        <section id="features" className="py-20 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {FEATURES.map(({ icon: Icon, title, description }) => (
