@@ -3,6 +3,7 @@ import { getProducts } from "./action";
 import AddProductForm from "@/components/AddProductForm";
 import ProductGrid from "@/components/ProductGrid";
 import Hero from "@/components/Hero";
+import HowItWorks from "@/components/HowItWorks";
 import { TrendingDown, Shield, Bell, Rabbit } from "lucide-react";
 import AuthButton from "@/components/AuthButton";
 import Image from "next/image";
@@ -36,9 +37,9 @@ export default async function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-linear-to-br from-orange-50 via-white to-orange-50">
+    <main className="min-h-screen bg-linear-to-br from-violet-50 via-white to-pink-50">
       {/* Header */}
-      <header className="bg-[#FFF0E0]/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-10">
+      <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <Image
@@ -57,25 +58,35 @@ export default async function Home() {
       {/* Hero Section */}
       <Hero>
         <AddProductForm user={user} />
-
-        {/* Features */}
-        {products.length === 0 && (
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16">
-            {FEATURES.map(({ icon: Icon, title, description }) => (
-              <div
-                key={title}
-                className="bg-white p-6 rounded-xl border border-gray-200"
-              >
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                  <Icon className="w-6 h-6 text-orange-500" />
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-                <p className="text-sm text-gray-600">{description}</p>
-              </div>
-            ))}
-          </div>
-        )}
       </Hero>
+
+      <HowItWorks />
+
+      {/* Features */}
+      {products.length === 0 && (
+        <section className="py-20 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              {FEATURES.map(({ icon: Icon, title, description }) => (
+                <div
+                  key={title}
+                  className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow"
+                >
+                  <div className="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                    <Icon className="w-6 h-6 text-violet-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-2 text-center">
+                    {title}
+                  </h3>
+                  <p className="text-sm text-gray-600 text-center">
+                    {description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Products Grid */}
       {user && products.length > 0 && (

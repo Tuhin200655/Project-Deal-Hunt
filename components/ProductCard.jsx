@@ -54,7 +54,7 @@ export default function ProductCard({ product }) {
                         </h3>
 
                         <div className="flex items-baseline gap-2">
-                            <span className="text-3xl font-bold text-orange-500">
+                            <span className="text-3xl font-bold text-violet-600">
                                 {product.currency} {product.price}
                             </span>
                             <Badge variant="secondary" className="gap-1">
