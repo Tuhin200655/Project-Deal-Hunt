@@ -69,6 +69,7 @@ export default function AddProductForm({ user }) {
               className="h-12 text-base"
               required
               disabled={loading}
+              aria-label="Product URL"
             />
 
             <Button
@@ -133,6 +134,7 @@ export default function AddProductForm({ user }) {
                     variant="outline"
                     onClick={() => setPreviewData(null)}
                     disabled={loading}
+                    aria-label="Close preview"
                   >
                     <X className="h-4 w-4" />
                   </Button>
