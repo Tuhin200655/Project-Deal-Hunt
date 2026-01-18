@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { getProducts } from "./action";
 import AddProductForm from "@/components/AddProductForm";
-import ProductCard from "@/components/ProductCard";
+import ProductGrid from "@/components/ProductGrid";
 import { TrendingDown, Shield, Bell, Rabbit } from "lucide-react";
 import AuthButton from "@/components/AuthButton";
 import Image from "next/image";
@@ -37,11 +37,11 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-linear-to-br from-orange-50 via-white to-orange-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10">
+      <header className="bg-[#FFF0E0]/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <Image
-              src="/logo.png"
+              src="/Logo.png"
               alt="Deal Hunt Logo"
               width={300}
               height={75}
@@ -92,8 +92,8 @@ export default async function Home() {
 
       {/* Products Grid */}
       {user && products.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 pb-20">
-          <div className="flex items-center justify-between mb-6">
+        <section>
+          <div className="max-w-7xl mx-auto px-4 mb-6 flex items-center justify-between">
             <h3 className="text-2xl font-bold text-gray-900">
               Your Tracked Products
             </h3>
@@ -102,11 +102,7 @@ export default async function Home() {
             </span>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 items-start">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          <ProductGrid products={products} />
         </section>
       )}
 

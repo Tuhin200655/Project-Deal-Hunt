@@ -27,7 +27,7 @@ export async function addProduct(formData) {
 
     if (!productData.productName || !productData.currentPrice) {
       console.log(productData, "productData");
-      return { error: "Could not extract product information from this URL" };
+      return { error: "This URL is not related to any product" };
     }
 
     const newPrice = parseFloat(productData.currentPrice);
@@ -122,6 +122,30 @@ export async function getProducts() {
   } catch (error) {
     console.error("Get products error:", error);
     return [];
+  }
+}
+
+export async function previewProduct(url) {
+  try {
+    const productData = await scrapeProduct(url);
+
+    if (!productData || !productData.productName || !productData.currentPrice) {
+      return { error: "This URL is not related to any product" };
+    }
+
+    return {
+      success: true,
+      data: {
+        name: productData.productName,
+        price: productData.currentPrice,
+        currency: productData.currencyCode || "USD",
+        image: productData.productImageUrl,
+        url: url,
+      },
+    };
+  } catch (error) {
+    console.error("Preview product error:", error);
+    return { error: "This URL is not related to any product" };
   }
 }
 
