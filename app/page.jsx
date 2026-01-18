@@ -41,7 +41,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <Image
-              src="/Logo.png"
+              src="/app-logo.png"
               alt="Deal Hunt Logo"
               width={300}
               height={75}
