@@ -97,10 +97,12 @@ export default function AddProductForm({ user }) {
           <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-xs animate-in fade-in slide-in-from-top-4">
             <div className="flex items-start gap-4">
               <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                <img
+                <Image
                   src={previewData.image}
                   alt={previewData.name}
-                  className="h-full w-full object-contain"
+                  fill
+                  className="object-contain"
+                  unoptimized
                 />
               </div>
 
