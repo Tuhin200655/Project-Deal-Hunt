@@ -4,6 +4,7 @@ import AddProductForm from "@/components/AddProductForm";
 import ProductGrid from "@/components/ProductGrid";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import Footer from "@/components/Footer";
 import { TrendingDown, Shield, Bell, Rabbit } from "lucide-react";
 import AuthButton from "@/components/AuthButton";
 import Image from "next/image";
@@ -118,6 +119,8 @@ export default async function Home() {
           </div>
         </section>
       )}
+
+      <Footer />
     </main>
   );
 }
