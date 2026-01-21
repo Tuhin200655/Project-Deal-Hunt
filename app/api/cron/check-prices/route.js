@@ -35,6 +35,8 @@ export async function POST(request) {
             errors: []
         };
 
+        const userCache = {}; // Initialize user cache
+
         for (const product of products) {
             try {
                 const productData = await scrapeProduct(product.url);
@@ -73,10 +75,18 @@ export async function POST(request) {
                     results.priceChanges++;
 
                     if (newPrice < oldPrice) {
-                        const {
-                            data: { user },
-                            error: userError
-                        } = await supabase.auth.admin.getUserById(product.user_id);
+                        let user = userCache[product.user_id];
+                        let userError;
+
+                        if (!user) {
+                            const { data, error } = await supabase.auth.admin.getUserById(product.user_id);
+                            if (error) {
+                                userError = error;
+                            } else {
+                                user = data.user;
+                                userCache[product.user_id] = user; // Cache user data
+                            }
+                        }
 
                         if (userError || !user) {
                             results.errors.push(`User fetch failed for ${product.user_id}: ${userError?.message}`);
