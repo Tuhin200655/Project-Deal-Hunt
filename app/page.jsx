@@ -5,6 +5,7 @@ import ProductGrid from "@/components/ProductGrid";
 import { TrendingDown, Shield, Bell, Rabbit } from "lucide-react";
 import AuthButton from "@/components/AuthButton";
 import Image from "next/image";
+import Footer from "@/components/Footer";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -120,6 +121,7 @@ export default async function Home() {
           </div>
         </section>
       )}
+      <Footer />
     </main>
   );
 }

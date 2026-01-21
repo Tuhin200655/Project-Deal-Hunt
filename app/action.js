@@ -4,6 +4,31 @@ import { createClient } from "@/utils/supabase/server";
 import { scrapeProduct } from "@/lib/firecrawl";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { Resend } from "resend";
+
+export async function sendContactEmail(formData) {
+  const email = formData.get("email");
+  const message = formData.get("message");
+
+  if (!email || !message) {
+    return { error: "Email and message are required" };
+  }
+
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL,
+      to: process.env.CONTACT_EMAIL,
+      subject: "New Contact Form Submission",
+      html: `<p>You have a new contact form submission from ${email}:</p><p>${message}</p>`,
+    });
+
+    return { success: true, message: "Your message has been sent!" };
+  } catch (error) {
+    console.error("Send contact email error:", error);
+    return { error: "Failed to send message" };
+  }
+}
 
 export async function addProduct(formData) {
   const url = formData.get("url");
